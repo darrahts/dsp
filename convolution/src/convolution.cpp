@@ -47,7 +47,13 @@ void Convolution::calc_running_sum(double* sig_dest)
 
 
 
-
+void Convolution::calc_first_diff(double* sig_dest)
+{
+	for(int i=0; i<this->sig_len; i++)
+	{
+		sig_dest[i] = sig_src[i] - this->sig_src[i-1];
+	}
+}
 
 
 

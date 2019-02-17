@@ -15,6 +15,8 @@ public:
 	void convolution(double* sig_dest);
 
 	void calc_running_sum(double* sig_dest);
+
+	void calc_first_diff(double* sig_dest);
 };
 
 #endif

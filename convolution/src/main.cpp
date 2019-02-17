@@ -55,11 +55,22 @@ void calc_running_sum_test(Convolution* conv)
 		f1<<sig_out[i]<<endl;
 	}
 	f1.close();
-
-
 }
 
+void calc_first_diff_test(Convolution* conv)
+{
+	double sig_out[sig_len];
+	ofstream f1;
 
+	conv->calc_first_diff(&sig_out[0]);
+
+	f1.open("first_diff.dat");
+	for(int i = 0; i < sig_len; i++)
+	{
+		f1<<sig_out[i]<<endl;
+	}
+	f1.close();
+}
 
 
 
@@ -69,7 +80,9 @@ int main()
 
 	//convolution_test(conv);
 
-	calc_running_sum_test(conv);
+	//calc_running_sum_test(conv);
+
+	calc_first_diff_test(conv);
 
 	return 0;
 }
