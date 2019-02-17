@@ -1,0 +1,10 @@
+set size 1,1.5
+set multiplot
+set size 1,.5
+set origin 0,0
+p 'sig_in.dat' with lines
+set size 1,.5
+set origin 0,.5
+p 'first_diff.dat' with lines
+
+
