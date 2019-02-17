@@ -1,9 +1,10 @@
 //============================================================================
 // Name        : convolution.cpp
-// Author      : 
+// Author      : Tim Darrah
+// Email	   : timothy.s.darrah@vanderbilt.edu
 // Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// Copyright   : MIT
+// Description : Signal convolution
 //============================================================================
 
 #include "convolution.hpp"
