@@ -12,7 +12,7 @@ private:
 public:
 	Convolution(double* sig_src, double* imp_res, int sig_len, int imp_len);
 
-	void convolution(double* sig_dest);
+	void calc_convolution(double* sig_dest);
 
 	void calc_running_sum(double* sig_dest);
 

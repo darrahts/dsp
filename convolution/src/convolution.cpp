@@ -18,7 +18,7 @@ Convolution::Convolution(double* sig_src, double* imp_res, int sig_len, int imp_
 }
 
 
-void Convolution::convolution(double* sig_dest)
+void Convolution::calc_convolution(double* sig_dest)
 {
 	int i,j;
 	for(i=0; i<(this->sig_len+this->imp_len);i++)

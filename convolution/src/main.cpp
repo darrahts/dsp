@@ -18,7 +18,7 @@ void convolution_test(Convolution* conv)
 	ofstream f1, f2, f3;
 	double sig_out[sig_len+imp_len];
 
-	conv->convolution(&sig_out[0]);
+	conv->calc_convolution(&sig_out[0]);
 
 	f1.open("sig_out.dat");
 	f2.open("sig_in.dat");
