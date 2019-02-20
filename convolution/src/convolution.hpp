@@ -19,9 +19,6 @@ public:
 
 	//time efficient calculations
 	void convolution(double* sig_dest);
-	void running_sum(double* sig_dest);
-	void first_diff(double* sig_dest);
-
 };
 
 #endif
