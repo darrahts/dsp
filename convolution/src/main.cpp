@@ -18,7 +18,8 @@ void convolution_test(Convolution* conv)
 	ofstream f1, f2, f3;
 	double sig_out[sig_len+imp_len];
 
-	conv->calc_convolution(&sig_out[0]);
+	//conv->calc_convolution(&sig_out[0]);
+	conv->convolution(&sig_out[0]);
 
 	f1.open("sig_out.dat");
 	f2.open("sig_in.dat");
@@ -78,11 +79,11 @@ int main()
 {
 	Convolution* conv = new Convolution(&InputSignal_f32_1kHz_15kHz[0], &Impulse_response[0], sig_len, imp_len);
 
-	//convolution_test(conv);
+	convolution_test(conv);
 
 	//calc_running_sum_test(conv);
 
-	calc_first_diff_test(conv);
+	//calc_first_diff_test(conv);
 
 	return 0;
 }
