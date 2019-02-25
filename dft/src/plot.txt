@@ -1,0 +1,4 @@
+p 'real_part.dat' with lines
+p 'imag_part.dat' with lines
+p 'input.dat' with lines
+p 'dft_mag.dat' with lines
