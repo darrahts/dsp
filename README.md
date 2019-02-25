@@ -14,3 +14,10 @@ dsp library in c++
 - running sum
 - first difference
 - example usage in `main.cpp`
+
+### dft
+#### contains:
+- basic dft
+- dft magnitude
+- inverse dft
+- complex dft
