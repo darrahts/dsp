@@ -17,9 +17,11 @@ extern double InputSignal_f32_1kHz_15kHz[320];
 
 //the dft is mirrored, so really only need half
 //just use the full dft and show its reflection about the midpoint
+//TODO make these public class members of the FourierTransform class
 double real_out[SIG_LEN];
 double imag_out[SIG_LEN];
 double mag_out[SIG_LEN];
+double sig_orig[SIG_LEN];
 
 using namespace std;
 
@@ -49,11 +51,40 @@ void dft_test(FourierTransform* fourier)
 	f4.close();
 }
 
+//void calc_inverse_dft(double* sig_out, double* real_part, double* imag_part, int sig_len)
+//{
+//	for(int i=0; i<sig_len;i++)
+//	{
+//		real_part[i] = real_part[i]/(sig_len/2);
+//		imag_part[i] = imag_part[i]/(sig_len/2);
+//		sig_out[i] =0;
+//	}
+//
+//	for(int i=0; i<sig_len/2;i++)
+//	{
+//		for(int j=0; j<sig_len;j++)
+//		{
+//			sig_out[j] = sig_out[j] + real_part[i]*cos(2*M_PI*i*j/sig_len);
+//			sig_out[j] = sig_out[j] + imag_part[i]*sin(2*M_PI*i*j/sig_len);
+//		}
+//	}
+//}
+
 
 int main()
 {
 	FourierTransform* fourier = new FourierTransform(&InputSignal_f32_1kHz_15kHz[0], SIG_LEN);
 	dft_test(fourier);
+
+	fourier->calc_inverse_dft(&sig_orig[0], &real_out[0], &imag_out[0]);
+	ofstream f5;
+	f5.open("sig_orig.dat");
+	for(int i=0; i< SIG_LEN; i++)
+	{
+		f5<<sig_orig[i]<<endl;
+	}
+
+	f5.close();
 
 	return 0;
 }

@@ -1,3 +1,18 @@
+reset
+set size 1,1
+set multiplot
+set size .5,.5
+p 'input.dat' with lines lc rgb 'black'
+set origin 0,.5
+p 'real_part.dat' with lines lc rgb 'blue'
+set origin .5,.5
+p 'imag_part.dat' with lines lc rgb 'blue'
+set origin .5,0
+p 'sig_orig.dat' with lines lc rgb 'red'
+
+
+
+
 p 'real_part.dat' with lines
 p 'imag_part.dat' with lines
 p 'input.dat' with lines
