@@ -51,31 +51,8 @@ void dft_test(FourierTransform* fourier)
 	f4.close();
 }
 
-//void calc_inverse_dft(double* sig_out, double* real_part, double* imag_part, int sig_len)
-//{
-//	for(int i=0; i<sig_len;i++)
-//	{
-//		real_part[i] = real_part[i]/(sig_len/2);
-//		imag_part[i] = imag_part[i]/(sig_len/2);
-//		sig_out[i] =0;
-//	}
-//
-//	for(int i=0; i<sig_len/2;i++)
-//	{
-//		for(int j=0; j<sig_len;j++)
-//		{
-//			sig_out[j] = sig_out[j] + real_part[i]*cos(2*M_PI*i*j/sig_len);
-//			sig_out[j] = sig_out[j] + imag_part[i]*sin(2*M_PI*i*j/sig_len);
-//		}
-//	}
-//}
-
-
-int main()
+void inverse_dft_test(FourierTransform* fourier)
 {
-	FourierTransform* fourier = new FourierTransform(&InputSignal_f32_1kHz_15kHz[0], SIG_LEN);
-	dft_test(fourier);
-
 	fourier->calc_inverse_dft(&sig_orig[0], &real_out[0], &imag_out[0]);
 	ofstream f5;
 	f5.open("sig_orig.dat");
@@ -85,6 +62,13 @@ int main()
 	}
 
 	f5.close();
+}
+
+int main()
+{
+	FourierTransform* fourier = new FourierTransform(&InputSignal_f32_1kHz_15kHz[0], SIG_LEN);
+	dft_test(fourier);
+	inverse_dft_test(fourier);
 
 	return 0;
 }
