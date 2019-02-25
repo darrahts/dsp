@@ -28,13 +28,15 @@ double mag_out[SIG_LEN];
 
 using namespace std;
 
+
 int main()
 {
 	ofstream f1, f2, f3, f4;
 
 	FourierTransform* fourier = new FourierTransform(&InputSignal_f32_1kHz_15kHz[0], SIG_LEN);
 	fourier->calc_dft(&real_out[0], &imag_out[0]);
-	fourier->calc_dft_magnitude(&real_out[0], &imag_out[0], &mag_out[0]);
+
+	fourier->calc_dft_magnitude(&mag_out[0], &real_out[0], &imag_out[0]);
 
 	f1.open("input.dat");
 	f2.open("real_part.dat");

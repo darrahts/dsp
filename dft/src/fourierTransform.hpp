@@ -18,9 +18,10 @@ class FourierTransform
 		FourierTransform(double* sig_src, int sig_len);
 
 		//calculates the dft of a signal
-		void calc_dft(double* real_dest, double* imag_dest);
+		void calc_dft(double* real_part, double* imag_part);
 
-		void calc_dft_magnitude(double* real_part, double* imag_part, double* dft_magnitude);
+		//calculates magnitude of dft (i.e. what frequencies are present in signal)
+		void calc_dft_magnitude(double* dft_mag, double* real_part, double* imag_part);
 
 //		double* real_part;
 //		double* imag_part;
