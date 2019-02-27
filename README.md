@@ -21,3 +21,9 @@ dsp library in c++
 - dft magnitude
 - inverse dft
 - complex dft
+
+###firFilters
+#### contains:
+- basic moving average
+- improved moving average
+- TODO move to class structure
