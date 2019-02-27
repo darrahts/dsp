@@ -62,8 +62,18 @@ void better_moving_average(double* sig_src, double* sig_out, int sig_len, int ke
 	}
 }
 
+/*
+ * separates one band of frequencies from another
+ * slow execution
+ * http://www.dspguide.com/ch16.htm
+ */
+void window_sinc_filter()
+{
 
-int main()
+}
+
+
+void moving_average_test()
 {
 	ofstream f1, f2;
 
@@ -80,6 +90,13 @@ int main()
 	}
 	f1.close();
 	f2.close();
+
+}
+
+
+
+int main()
+{
 
 	return 0;
 }
