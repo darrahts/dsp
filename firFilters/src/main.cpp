@@ -67,7 +67,7 @@ void better_moving_average(double* sig_src, double* sig_out, int sig_len, int ke
  * slow execution
  * http://www.dspguide.com/ch16.htm
  */
-void window_sinc_filter()
+void window_sinc_lowpass_filter()
 {
 
 }
