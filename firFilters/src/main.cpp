@@ -11,6 +11,7 @@
 #include <cmath>
 #include <fstream>
 
+#define KERNEL_LEN 29
 #define SIG_LEN 320
 
 using namespace std;
@@ -18,7 +19,11 @@ using namespace std;
 extern double InputSignal_f32_1kHz_15kHz[SIG_LEN];
 double sig_out_ma[SIG_LEN];
 
-/*
+double sig_out_windowed[KERNEL_LEN + SIG_LEN];
+double kernel[KERNEL_LEN];
+
+
+/**@note
  * this is very inefficient as input points are calculated over and over again
  * ex (kernel size = 5): y[j] = (x[j-2] + x[j-1] + x[j] + x[j+1] + x[j+2]) / 5
  * the next point is:  y[j+1] = (x[j-1] + x[j] + x[j+1] + x[j+2] + x[j+3]) / 5
@@ -41,7 +46,7 @@ void calc_moving_average(double* sig_src, double* sig_out, int sig_len, int kern
 	}
 }
 
-/*
+/**@note
  * uses the formula y[i] = y[i-1] + x[i + a] - x[i-b]
  * where a = (kernel_size - 1) / 2
  * where b = a + 1
@@ -62,12 +67,12 @@ void better_moving_average(double* sig_src, double* sig_out, int sig_len, int ke
 	}
 }
 
-/*
+/**@note
  * separates one band of frequencies from another
  * slow execution
  * http://www.dspguide.com/ch16.htm
  */
-void window_sinc_lowpass_filter(long double* filter_kernel, double cutoff_freq, int filter_len)
+void window_sinc_lowpass_filter(double* filter_kernel, double cutoff_freq_ratio, int filter_len)
 {
 	double twoPi = 2*M_PI;
 	int half_len = filter_len/2;
@@ -76,18 +81,18 @@ void window_sinc_lowpass_filter(long double* filter_kernel, double cutoff_freq, 
 	{
 		if(i-filter_len/2 == 0)
 		{
-			filter_kernel[i] = twoPi*cutoff_freq;
+			filter_kernel[i] = twoPi*cutoff_freq_ratio;
 		}
 		else
 		{
-			filter_kernel[i] = sin(twoPi*cutoff_freq*(i-half_len))/(i-half_len);
+			filter_kernel[i] = sin(twoPi*cutoff_freq_ratio*(i-half_len))/(i-half_len);
 			filter_kernel[i] = filter_kernel[i] * (.54-.46*cos(twoPi*i/filter_len));
 		}
 	}
 }
 
 
-void convolution(double* sig_src, double* sig_dest, long double* imp_res, int sig_src_len, int imp_res_len)
+void convolution(double* sig_src, double* sig_dest, double* imp_res, int sig_src_len, int imp_res_len)
 {
     for(int i =0;i<(sig_src_len + imp_res_len);i++)
     {
@@ -129,6 +134,31 @@ void moving_average_test()
 
 int main()
 {
+	ofstream f1, f2, f3;
+
+	window_sinc_lowpass_filter(kernel, .2, KERNEL_LEN);
+	convolution(&InputSignal_f32_1kHz_15kHz[0], &sig_out_windowed[0], &kernel[0], SIG_LEN, KERNEL_LEN);
+
+	f1.open("sig_in2.dat");
+	f2.open("kernel.dat");
+	f3.open("sig_windowed.dat");
+
+	for(int i=0; i<SIG_LEN+KERNEL_LEN; i++)
+	{
+		if(i<SIG_LEN)
+		{
+			f1<<InputSignal_f32_1kHz_15kHz[i]<<endl;
+		}
+
+		if(i<KERNEL_LEN)
+		{
+			f2<<kernel[i]<<endl;
+		}
+		f3<<sig_out_windowed[i]<<endl;
+	}
+	f1.close();
+	f2.close();
+	f3.close();
 
 	return 0;
 }

@@ -1,10 +1,13 @@
-set size 1,1.5
+set size 1,1
 set multiplot
 set size 1,.5
 set origin 0,0
-p 'sig_in.dat' with lines
-set size 1,.5
-set origin 0,.5
-p 'sig_ma.dat' with lines
+p 'sig_windowed.dat' with lines
+set size .5,.5
+set origin 0,0.5
+p 'sig_in2.dat' with lines
+set size .5,.5
+set origin .5,.5
+p 'kernel.dat' with lines
 
 
