@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : firFilters.cpp
+// Name        : filters.cpp
 // Author      : Timothy Darrah
 // Version     :
 // Copyright   : MIT
@@ -39,7 +39,27 @@ void calc_moving_average(double* sig_src, double* sig_out, int sig_len, int kern
 
 		sig_out[i] = sig_out[i]/kernel_size;
 	}
+}
 
+/*
+ * uses the formula y[i] = y[i-1] + x[i + a] - x[i-b]
+ * where a = (kernel_size - 1) / 2
+ * where b = a + 1
+ */
+void better_moving_average(double* sig_src, double* sig_out, int sig_len, int kernel_size)
+{
+	int idx = (int)floor(kernel_size/2);
+	double acc = 0.0; //accumulator
+	for(int i=0; i < kernel_size-1;i++)
+	{
+		acc = acc + sig_src[i];
+	}
+	sig_out[(kernel_size-1)/2] = acc/kernel_size;
+	for(int i = idx; i < (sig_len - idx -1); i++)
+	{
+		acc = acc + sig_src[i+((kernel_size-1)/2)] - sig_src[i - idx];
+		sig_out[i] = (acc / kernel_size);
+	}
 }
 
 
@@ -47,7 +67,8 @@ int main()
 {
 	ofstream f1, f2;
 
-	calc_moving_average(&InputSignal_f32_1kHz_15kHz[0], &sig_out_ma[0], SIG_LEN, 11);
+	//calc_moving_average(&InputSignal_f32_1kHz_15kHz[0], &sig_out_ma[0], SIG_LEN, 11);
+	better_moving_average(&InputSignal_f32_1kHz_15kHz[0], &sig_out_ma[0], SIG_LEN, 11);
 
 	f1.open("sig_in.dat");
 	f2.open("sig_ma.dat");
