@@ -67,9 +67,41 @@ void better_moving_average(double* sig_src, double* sig_out, int sig_len, int ke
  * slow execution
  * http://www.dspguide.com/ch16.htm
  */
-void window_sinc_lowpass_filter()
+void window_sinc_lowpass_filter(long double* filter_kernel, double cutoff_freq, int filter_len)
 {
+	double twoPi = 2*M_PI;
+	int half_len = filter_len/2;
 
+	for(int i = 0; i< filter_len; i++)
+	{
+		if(i-filter_len/2 == 0)
+		{
+			filter_kernel[i] = twoPi*cutoff_freq;
+		}
+		else
+		{
+			filter_kernel[i] = sin(twoPi*cutoff_freq*(i-half_len))/(i-half_len);
+			filter_kernel[i] = filter_kernel[i] * (.54-.46*cos(twoPi*i/filter_len));
+		}
+	}
+}
+
+
+void convolution(double* sig_src, double* sig_dest, long double* imp_res, int sig_src_len, int imp_res_len)
+{
+    for(int i =0;i<(sig_src_len + imp_res_len);i++)
+    {
+        sig_dest[i] = 0;
+    }
+
+	for(int i=0;i<sig_src_len;i++)
+	{
+
+		for(int j=0;j<imp_res_len;j++)
+		{
+			sig_dest[i+j] =  sig_dest[i+j] + sig_src[i]*imp_res[j];
+		}
+	}
 }
 
 
