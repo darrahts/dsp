@@ -18,7 +18,12 @@ using namespace std;
 extern double InputSignal_f32_1kHz_15kHz[SIG_LEN];
 double sig_out_ma[SIG_LEN];
 
-
+/*
+ * this is very inefficient as input points are calculated over and over again
+ * ex (kernel size = 5): y[j] = (x[j-2] + x[j-1] + x[j] + x[j+1] + x[j+2]) / 5
+ * the next point is:  y[j+1] = (x[j-1] + x[j] + x[j+1] + x[j+2] + x[j+3]) / 5
+ * a better filter makes use of y[j] when calculating y[j+1]
+*/
 void calc_moving_average(double* sig_src, double* sig_out, int sig_len, int kernel_size)
 {
 	int idx = (int)floor(kernel_size/2);
