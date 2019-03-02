@@ -1,5 +1,5 @@
 # dsp
-dsp library in c++
+[WIP] dsp library in c++
 
 ### SigStats
 #### contains:
@@ -28,3 +28,13 @@ dsp library in c++
 - improved moving average
 - TODO move to class structure
 - TODO rename from "firFilters" to "filters"
+
+### TODO Addition
+- dwt
+- high pass filter
+- narrow-band filter
+- band pass filter
+- butterworth filter
+- upsampling / downsampling
+- outlier detection
+- spectrogram
