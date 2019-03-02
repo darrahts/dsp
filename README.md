@@ -29,7 +29,7 @@
 - TODO move to class structure
 - TODO rename from "firFilters" to "filters"
 
-### TODO Addition
+### TODO Additions
 - dwt
 - high pass filter
 - narrow-band filter
